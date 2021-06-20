@@ -39,7 +39,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "node_modules/.bin/eslint",
+    "eslint:hook": "node_modules/.bin/eslint $(git diff-index --name-only --diff-filter=d HEAD | grep .*\\.ts | grep -v json)",
+    "eslint-autofix": "node_modules/.bin/eslint --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -62,6 +65,21 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.10",
-    "eslint": "^7.29.0"
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.29.0",
+    "eslint-plugin-react": "^7.24.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "npm run eslint:hook"
+    ]
   }
 }
