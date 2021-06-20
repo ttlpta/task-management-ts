@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
@@ -14,7 +14,11 @@ import { toggleDrawer } from "../../redux/slices/uiSlice";
 import { logout as logoutAction } from "../../redux/slices/authSlice";
 import UserInfo from "./UserInfo";
 
-function Layout(props) {
+type LayoutProps = PropsWithChildren<{
+  title: string
+}>;
+
+function Layout(props: LayoutProps) {
   const dispatch = useDispatch();
 
   const handleClickMenu = () => dispatch(toggleDrawer());

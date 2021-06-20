@@ -19,7 +19,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const axiosAuth = (accessToken) => {
+export const axiosAuth = (accessToken: string) => {
   axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
   return axiosInstance;

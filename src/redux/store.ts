@@ -2,6 +2,7 @@ import {
   configureStore,
   combineReducers,
   getDefaultMiddleware,
+  Action,
 } from "@reduxjs/toolkit";
 import {
   persistStore,
@@ -20,6 +21,7 @@ import authReducer from "./slices/authSlice";
 import uiReducer from "./slices/uiSlice";
 import taskReducer from "./slices/taskSlice";
 import { APP_NAME } from "../config";
+import { AuthState } from "../type/model";
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -27,7 +29,9 @@ const appReducer = combineReducers({
   task: taskReducer,
 });
 
-const rootReducer = (state, action) => {
+export type RootState = ReturnType<typeof appReducer>;
+
+const rootReducer = (state: RootState, action: Action): RootState => {
   if (action.type === "auth/logout") {
     return appReducer(undefined, action);
   }
@@ -36,13 +40,15 @@ const rootReducer = (state, action) => {
 };
 
 const SetTransform = createTransform(
-  (inboundState) => {
+  (
+    inboundState: AuthState
+  ): Pick<AuthState, "accessToken" | "refreshToken"> => {
     return {
       accessToken: inboundState.accessToken,
-      refreshToken: inboundState.refreshToken,
+      refreshToken: inboundState?.refreshToken || "",
     };
   },
-  (outboundState) => {
+  (outboundState: any) => {
     return outboundState;
   },
   { whitelist: ["auth"] }
@@ -55,7 +61,7 @@ const persistConfig = {
   transforms: [SetTransform],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer as never);
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -66,6 +72,7 @@ const store = configureStore({
   }),
 });
 
+export type AppDispatch = typeof store.dispatch;
 const persistor = persistStore(store);
 
 const S = { store, persistor };

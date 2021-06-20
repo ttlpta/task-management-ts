@@ -1,36 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { axiosAuth } from "../../axios";
-import { STATUS } from "../../config";
+import { LoginRequestForm, AuthToken, RejectThunk } from "../../type/api";
 import {
-  LoginRequestForm,
-  LoginResponse,
-  RejectThunk,
-  APIFunc,
-} from "../../type/api";
+  AuthState,
+  CurrentUser,
+  StatusStateENUM,
+} from "../../type/model";
 import asyncThunkWrapper from "../asyncThunkWrapper";
-
-const loginAPI: APIFunc<LoginRequestForm> = ({ body }) =>
-  axios.post("/auth/login", body);
+import {
+  loginService,
+  getCurrentUserService,
+} from "../../services/AuthService";
+import { RootState } from "../store";
 
 export const login = createAsyncThunk<
-  LoginResponse,
+  AuthToken,
   LoginRequestForm,
   RejectThunk
->("auth/login", asyncThunkWrapper(loginAPI));
+>("auth/login", asyncThunkWrapper(loginService));
 
-const getCurrentUserAPI: APIFunc<null> = ({ accessToken }) =>
-  axiosAuth(accessToken).get("/users/me");
+export const getCurrentUser = createAsyncThunk<
+  CurrentUser,
+  undefined,
+  RejectThunk
+>("auth/getCurrentUser", asyncThunkWrapper(getCurrentUserService));
 
-export const getCurrentUser = createAsyncThunk(
-  "auth/getCurrentUser",
-  asyncThunkWrapper(getCurrentUserAPI)
-);
-
-const initialState = {
+const initialState: AuthState = {
   accessToken: "",
   refreshToken: "",
-  currentUser: {},
-  status: STATUS.IDLE,
+  error: "",
+  currentUser: {} as CurrentUser,
+  status: StatusStateENUM.IDLE,
 };
 
 export const authSlice = createSlice({
@@ -41,41 +40,34 @@ export const authSlice = createSlice({
       return initialState;
     },
   },
-  // extraReducers: {
-  //   [login.pending]: (state) => {
-  //     state.status = STATUS.LOADING;
-  //   },
-  //   [login.fulfilled]: (state, action) => {
-  //     state.status = STATUS.SUCCEEDED;
-  //     state.accessToken = action.payload.accessToken;
-  //     state.refreshToken = action.payload?.refreshToken;
-  //   },
-  //   [login.rejected]: (state, action) => {
-  //     state.status = STATUS.FAILED;
-  //     state.error = action.message;
-  //   },
-  //   [getCurrentUser.fulfilled]: (state, action) => {
-  //     state.status = STATUS.SUCCEEDED;
-  //     state.currentUser = action.payload;
-  //   },
-  //   [getCurrentUser.rejected]: (state, action) => {
-  //     state.status = STATUS.FAILED;
-  //     state.error = action.message;
-  //   },
-  // },
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state, action) => {
-      state.status = STATUS.LOADING;
+    builder.addCase(login.pending, (state) => {
+      state.status = StatusStateENUM.LOADING;
     });
     builder.addCase(login.fulfilled, (state, action) => {
-      state.status = STATUS.SUCCEEDED;
+      state.status = StatusStateENUM.SUCCEEDED;
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload?.refreshToken;
     });
-  }
+    builder.addCase(login.rejected, (state, action) => {
+      state.status = StatusStateENUM.FAILED;
+      state.error = action.payload?.message;
+    });
+    builder.addCase(getCurrentUser.pending, (state) => {
+      state.status = StatusStateENUM.LOADING;
+    });
+    builder.addCase(getCurrentUser.fulfilled, (state, action) => {
+      state.status = StatusStateENUM.SUCCEEDED;
+      state.currentUser = action.payload;
+    });
+    builder.addCase(getCurrentUser.rejected, (state, action) => {
+      state.status = StatusStateENUM.FAILED;
+      state.error = action.payload?.message;
+    });
+  },
 });
 export const { logout } = authSlice.actions;
 
-export const authState = (state) => state.auth;
+export const authState = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

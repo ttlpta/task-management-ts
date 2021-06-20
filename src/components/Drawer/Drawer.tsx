@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from '../../hooks'
 import {
   Link
 } from "react-router-dom";
@@ -15,10 +15,11 @@ import { toggleDrawer } from "../../redux/slices/uiSlice";
 import { uiDrawerState, getMenuItems } from "../../redux/slices/uiSlice";
 
 import DrawerStyled from "./DrawerStyled";
+import { MenuItem } from "../../type/api";
 
-export default function Drawer(params) {
-  const uiDrawer = useSelector(uiDrawerState);
-  const dispatch = useDispatch();
+export default function Drawer() {
+  const uiDrawer = useAppSelector(uiDrawerState);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     !uiDrawer.list.length && dispatch(getMenuItems());
@@ -37,7 +38,7 @@ export default function Drawer(params) {
       <Box paddingTop={8}>
         <Divider />
         <List>
-          {uiDrawer.list.map((item, index) => (
+          {uiDrawer.list.map((item: MenuItem) => (
             <Link to={`/${item.code}`} key={item.code}>
               <ListItem>
                 <ListItemIcon>

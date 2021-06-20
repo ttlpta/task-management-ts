@@ -13,6 +13,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 
 import { getTasks, selectAllTasks } from "../../redux/slices/taskSlice";
+import { Task } from "../../type/model";
 
 const columnData = [
   { code: "id", label: "ID" },
@@ -27,12 +28,17 @@ const columnData = [
   { code: "action", label: "Action" },
 ];
 
-function Row({ row, onEdit }) {
-  const handleClickEdit = (task) => {
+type RowProps = {
+  row: Task;
+  onEdit: (taskId: number) => void;
+};
+
+function Row({ row, onEdit }: RowProps) {
+  const handleClickEdit = (task: Task) => {
     onEdit(task.id);
   };
 
-  const renderData = (data, name) => {
+  const renderData = (data: Task, name: string): string | number | JSX.Element=> {
     if (name === "action") {
       return (
         <Box>
@@ -45,7 +51,7 @@ function Row({ row, onEdit }) {
         </Box>
       );
     }
-    return data[name] || "N/A";
+    return data[name as never] || "N/A";
   };
 
   const renderRow = useMemo(() => {
@@ -66,7 +72,11 @@ function Row({ row, onEdit }) {
   return renderRow;
 }
 
-function DataTable({ onEdit }) {
+type DataTableProps = {
+  onEdit: (taskId: number) => void;
+};
+
+function DataTable({ onEdit }: DataTableProps) {
   const dispatch = useDispatch();
   const tasks = useSelector(selectAllTasks);
 

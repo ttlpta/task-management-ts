@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
-    "@types/styled-components": "^5.1.10"
+    "@types/styled-components": "^5.1.10",
+    "eslint": "^7.29.0"
   }
 }

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, Fragment, useEffect, PropsWithChildren } from "react";
+import { Suspense, lazy, Fragment, useEffect, PropsWithChildren } from "react";
 import {
   Switch,
   BrowserRouter as Router,

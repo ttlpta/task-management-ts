@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from '../../hooks'
 import { unwrapResult } from "@reduxjs/toolkit";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -18,16 +18,24 @@ import {
 
 import { CreateTaskSchema } from "../../schemas";
 import { useEffect, useState } from "react";
+import { CreateTaskRequestForm } from "../../type/api";
+
+type CreateTaskDialogProps = {
+  open: boolean;
+  handleClose: () => void;
+  taskId: number | null
+}
 
 export default function CreateTaskDialog({
   open,
   handleClose: close,
   taskId = null,
-}) {
-  const dispatch = useDispatch();
+}: CreateTaskDialogProps) {
+
+  const dispatch = useAppDispatch();
   const [formLoading, setFormLoading] = useState(false);
-  const task = useSelector((state) => selectTaskById(state, taskId));
-  const handleSubmit = async (data) => {
+  const task = useAppSelector((state) => selectTaskById(state, taskId as number));
+  const handleSubmit = async (data: CreateTaskRequestForm) => {
     try {
       setFormLoading(true);
       const result = task

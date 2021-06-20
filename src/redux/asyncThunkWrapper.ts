@@ -1,4 +1,5 @@
-import { APIFunc } from "../type/api";
+import { APIFunc, CommonError } from "../type/api";
+import { RootState } from "./store";
 
 const wrapper =
   (API: APIFunc<any>) =>
@@ -6,7 +7,7 @@ const wrapper =
     try {
       const {
         auth: { accessToken },
-      } = getState();
+      }: RootState = getState();
       const { data } = await API({body, accessToken});
 
       return data;
@@ -15,7 +16,7 @@ const wrapper =
       if (errorData.statusCode === 401) {
         window.location.href = "/logout";
       }
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data as CommonError);
     }
   };
 
