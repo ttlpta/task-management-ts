@@ -8,7 +8,7 @@ type Props = ButtonProps & {
 export default function Button({ label, ...props }: Props) {
   return (
     <ButtonStyled variant="outlined" {...props}>
-      {label} ttlptaaaa
+      {label} ttlptaaaaaaaa
     </ButtonStyled>
   );
 }
