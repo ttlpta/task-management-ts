@@ -15,7 +15,7 @@ axiosInstance.interceptors.response.use(
   (error) => Promise.reject(error),
 );
 
-export const axiosAuth = (accessToken: string) => {
+export const axiosAuth = (accessToken: string | undefined) => {
   axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
   return axiosInstance;

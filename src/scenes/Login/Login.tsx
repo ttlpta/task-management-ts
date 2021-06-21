@@ -1,7 +1,6 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login, authState, getCurrentUser } from '../../redux/slices/authSlice';
 import { showAlert } from '../../redux/slices/uiSlice';
 import {
@@ -11,14 +10,21 @@ import {
   Form,
   CheckboxForm,
 } from '../../components';
-import { LoginSchema } from '../../schemas';
+import { ILoginSchema, LoginSchema } from '../../schemas';
 import LoginStyled from './LoginStyled';
+import { LoginRequestForm } from '../../type/api';
+
+interface LocationState {
+  from: {
+    pathname: string;
+  };
+}
 
 export default function Login() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const location = useLocation();
-  const handleSubmit = async (data) => {
+  const location = useLocation<LocationState>();
+  const handleSubmit = async (data: LoginRequestForm) => {
     try {
       const result = await dispatch(login(data));
       unwrapResult(result);
@@ -41,12 +47,12 @@ export default function Login() {
     }
   };
 
-  const auth = useSelector(authState);
+  const auth = useAppSelector(authState);
 
   return (
     <LoginStyled>
       <Card className="loginForm__wrapper">
-        <Form
+        <Form<LoginRequestForm, ILoginSchema>
           onSubmit={handleSubmit}
           schema={LoginSchema}
           loading={auth.status === 'loading'}

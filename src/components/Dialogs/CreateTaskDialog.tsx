@@ -16,9 +16,10 @@ import {
   updateTask,
 } from '../../redux/slices/taskSlice';
 
-import { CreateTaskSchema } from '../../schemas';
+import { CreateTaskSchema, ICreateTaskSchema } from '../../schemas';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { CreateTaskRequestForm } from '../../type/api';
+import { Task } from '../../type/model';
 
 type CreateTaskDialogProps = {
   open: boolean;
@@ -77,12 +78,12 @@ export default function CreateTaskDialog({
   const defaultValue = task
     ? {
       name: task.name,
-      authorID: task.authorID,
+      authorID: task.authorID, // @TODO: sau nay se thay thanh Select, value la id, option la string
       ownerId: task.ownerId,
       categoryId: task.categoryId,
       description: task.description,
-    }
-    : {};
+    } as ICreateTaskSchema
+    : {} as ICreateTaskSchema;
 
   return (
     <Dialog
@@ -92,7 +93,7 @@ export default function CreateTaskDialog({
       onClose={handleClose}
       aria-labelledby="form-dialog-title"
     >
-      <Form
+      <Form<Task, ICreateTaskSchema>
         defaultValues={defaultValue}
         loading={formLoading}
         onSubmit={handleSubmit}
