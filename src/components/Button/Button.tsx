@@ -9,8 +9,6 @@ export default function Button({ label, ...props }: Props) {
   return (
     <ButtonStyled variant="outlined" {...props}>
       {label}
-      {' '}
-      ttlptaaaaaaaaaaaaaaaaaaaaaaa
     </ButtonStyled>
   );
 }
