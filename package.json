@@ -2,6 +2,7 @@
   "name": "task-management-ts",
   "version": "0.1.0",
   "private": true,
+  "license": "ISC",
   "dependencies": {
     "@hookform/resolvers": "^2.0.1",
     "@material-ui/core": "^4.11.3",
