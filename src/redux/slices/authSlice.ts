@@ -1,44 +1,42 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginRequestForm, AuthToken, RejectThunk } from "../../type/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { LoginRequestForm, AuthToken, RejectThunk } from '../../type/api';
 import {
   AuthState,
   CurrentUser,
   StatusStateENUM,
-} from "../../type/model";
-import asyncThunkWrapper from "../asyncThunkWrapper";
+} from '../../type/model';
+import asyncThunkWrapper from '../asyncThunkWrapper';
 import {
   loginService,
   getCurrentUserService,
-} from "../../services/AuthService";
-import { RootState } from "../store";
+} from '../../services/AuthService';
+import { RootState } from '../store';
 
 export const login = createAsyncThunk<
-  AuthToken,
-  LoginRequestForm,
-  RejectThunk
->("auth/login", asyncThunkWrapper(loginService));
+AuthToken,
+LoginRequestForm,
+RejectThunk
+>('auth/login', asyncThunkWrapper(loginService));
 
 export const getCurrentUser = createAsyncThunk<
-  CurrentUser,
-  undefined,
-  RejectThunk
->("auth/getCurrentUser", asyncThunkWrapper(getCurrentUserService));
+CurrentUser,
+undefined,
+RejectThunk
+>('auth/getCurrentUser', asyncThunkWrapper(getCurrentUserService));
 
 const initialState: AuthState = {
-  accessToken: "",
-  refreshToken: "",
-  error: "",
+  accessToken: '',
+  refreshToken: '',
+  error: '',
   currentUser: {} as CurrentUser,
   status: StatusStateENUM.IDLE,
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
-    logout: () => {
-      return initialState;
-    },
+    logout: () => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {

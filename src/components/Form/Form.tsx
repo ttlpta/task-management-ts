@@ -1,10 +1,10 @@
-import FormStyled from "./FormStyled";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box } from "@material-ui/core";
-import { Spinner } from "..";
-import { ObjectSchema } from "yup";
-import { PropsWithChildren } from "react";
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box } from '@material-ui/core';
+import { ObjectSchema } from 'yup';
+import { PropsWithChildren } from 'react';
+import { Spinner } from '..';
+import FormStyled from './FormStyled';
 
 type FormProps<T> = PropsWithChildren<{
   defaultValues: T;

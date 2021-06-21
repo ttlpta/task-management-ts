@@ -1,5 +1,4 @@
-import styled from "styled-components";
-import Checkbox from "@material-ui/core/Checkbox";
+import styled from 'styled-components';
+import Checkbox from '@material-ui/core/Checkbox';
 
-export default styled(Checkbox)``
-
+export default styled(Checkbox)``;

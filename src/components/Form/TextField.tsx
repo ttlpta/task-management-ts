@@ -1,8 +1,11 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import TextField from "../TextField/TextField";
+import { TextFieldProps } from '@material-ui/core';
+import { useFormContext } from 'react-hook-form';
+import TextField from '../TextField/TextField';
 
-export default function TextFieldForm({ name, ...props }) {
+type TextFieldFormProps = TextFieldProps & {
+  name: string
+};
+export default function TextFieldForm({ name, ...props }: TextFieldFormProps) {
   const { register, formState: { errors } } = useFormContext();
   const { ref, ...methods } = register(name);
 

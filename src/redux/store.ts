@@ -3,7 +3,7 @@ import {
   combineReducers,
   getDefaultMiddleware,
   Action,
-} from "@reduxjs/toolkit";
+} from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -14,14 +14,14 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-import authReducer from "./slices/authSlice";
-import uiReducer from "./slices/uiSlice";
-import taskReducer from "./slices/taskSlice";
-import { APP_NAME } from "../config";
-import { AuthState } from "../type/model";
+import authReducer from './slices/authSlice';
+import uiReducer from './slices/uiSlice';
+import taskReducer from './slices/taskSlice';
+import { APP_NAME } from '../config';
+import { AuthState } from '../type/model';
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -32,7 +32,7 @@ const appReducer = combineReducers({
 export type RootState = ReturnType<typeof appReducer>;
 
 const rootReducer = (state: RootState, action: Action): RootState => {
-  if (action.type === "auth/logout") {
+  if (action.type === 'auth/logout') {
     return appReducer(undefined, action);
   }
 
@@ -41,23 +41,19 @@ const rootReducer = (state: RootState, action: Action): RootState => {
 
 const SetTransform = createTransform(
   (
-    inboundState: AuthState
-  ): Pick<AuthState, "accessToken" | "refreshToken"> => {
-    return {
-      accessToken: inboundState.accessToken,
-      refreshToken: inboundState?.refreshToken || "",
-    };
-  },
-  (outboundState: any) => {
-    return outboundState;
-  },
-  { whitelist: ["auth"] }
+    inboundState: AuthState,
+  ): Pick<AuthState, 'accessToken' | 'refreshToken'> => ({
+    accessToken: inboundState.accessToken,
+    refreshToken: inboundState?.refreshToken || '',
+  }),
+  (outboundState: any) => outboundState,
+  { whitelist: ['auth'] },
 );
 
 const persistConfig = {
   key: APP_NAME,
   storage,
-  whitelist: ["auth"],
+  whitelist: ['auth'],
   transforms: [SetTransform],
 };
 

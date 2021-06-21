@@ -1,52 +1,64 @@
-import React, { PropsWithChildren } from "react";
-import { useDispatch } from "react-redux";
-import AppBar from "@material-ui/core/AppBar";
-import Box from "@material-ui/core/Box";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import LayoutStyled from "./LayoutStyled";
-import Drawer from "../Drawer/Drawer";
+import { PropsWithChildren, memo } from 'react';
+import { useDispatch } from 'react-redux';
+import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import LayoutStyled from './LayoutStyled';
+import Drawer from '../Drawer/Drawer';
 
-import { toggleDrawer } from "../../redux/slices/uiSlice";
-import { logout as logoutAction } from "../../redux/slices/authSlice";
-import UserInfo from "./UserInfo";
+import { toggleDrawer } from '../../redux/slices/uiSlice';
+import { logout as logoutAction } from '../../redux/slices/authSlice';
+import UserInfo from './UserInfo';
 
 type LayoutProps = PropsWithChildren<{
-  title: string
+  title: string;
 }>;
 
-function Layout(props: LayoutProps) {
+function Layout({ title, children }: LayoutProps) {
   const dispatch = useDispatch();
 
   const handleClickMenu = () => dispatch(toggleDrawer());
-  const logout = () => dispatch(logoutAction())
+  const logout = () => dispatch(logoutAction());
 
   console.log('layout render');
   return (
     <LayoutStyled>
       <AppBar position="static" color="secondary">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClickMenu}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleClickMenu}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className="app__title">
-            {props.title}
+            {title}
           </Typography>
           <Box display="flex" alignItems="center">
             <Box mr="10px">
               <UserInfo />
             </Box>
-            <Button color="inherit" onClick={logout} variant="outlined" size="small">Logout</Button>
+            <Button
+              color="inherit"
+              onClick={logout}
+              variant="outlined"
+              size="small"
+            >
+              Logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
       <Drawer />
-      <Box className="app__body">{props.children}</Box>
+      <Box className="app__body">{children}</Box>
     </LayoutStyled>
   );
 }
 
-export default React.memo(Layout);
+export default memo(Layout);

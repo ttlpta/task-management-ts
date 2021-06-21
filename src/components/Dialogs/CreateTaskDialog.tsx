@@ -1,37 +1,36 @@
-import { useAppSelector, useAppDispatch } from '../../hooks'
-import { unwrapResult } from "@reduxjs/toolkit";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import Grid from "@material-ui/core/Grid";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { showAlert } from "../../redux/slices/uiSlice";
-import TextFieldForm from "../Form/TextField";
-import Form from "../Form/Form";
+import { unwrapResult } from '@reduxjs/toolkit';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Grid from '@material-ui/core/Grid';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { useEffect, useState } from 'react';
+import { showAlert } from '../../redux/slices/uiSlice';
+import TextFieldForm from '../Form/TextField';
+import Form from '../Form/Form';
 import {
   createTask,
   getTaskById,
   selectTaskById,
   updateTask,
-} from "../../redux/slices/taskSlice";
+} from '../../redux/slices/taskSlice';
 
-import { CreateTaskSchema } from "../../schemas";
-import { useEffect, useState } from "react";
-import { CreateTaskRequestForm } from "../../type/api";
+import { CreateTaskSchema } from '../../schemas';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { CreateTaskRequestForm } from '../../type/api';
 
 type CreateTaskDialogProps = {
   open: boolean;
   handleClose: () => void;
   taskId: number | null
-}
+};
 
 export default function CreateTaskDialog({
   open,
   handleClose: close,
   taskId = null,
 }: CreateTaskDialogProps) {
-
   const dispatch = useAppDispatch();
   const [formLoading, setFormLoading] = useState(false);
   const task = useAppSelector((state) => selectTaskById(state, taskId as number));
@@ -45,9 +44,9 @@ export default function CreateTaskDialog({
       dispatch(
         showAlert({
           show: true,
-          message: "Created success",
-          type: "success",
-        })
+          message: 'Created success',
+          type: 'success',
+        }),
       );
       close();
     } catch (error) {
@@ -55,8 +54,8 @@ export default function CreateTaskDialog({
         showAlert({
           show: true,
           message: error.message,
-          type: "error",
-        })
+          type: 'error',
+        }),
       );
     } finally {
       setFormLoading(false);
@@ -77,12 +76,12 @@ export default function CreateTaskDialog({
   }, [taskId, dispatch]);
   const defaultValue = task
     ? {
-        name: task.name,
-        authorID: task.authorID,
-        ownerId: task.ownerId,
-        categoryId: task.categoryId,
-        description: task.description,
-      }
+      name: task.name,
+      authorID: task.authorID,
+      ownerId: task.ownerId,
+      categoryId: task.categoryId,
+      description: task.description,
+    }
     : {};
 
   return (
@@ -100,7 +99,7 @@ export default function CreateTaskDialog({
         schema={CreateTaskSchema}
       >
         <DialogTitle id="form-dialog-title">
-          {task ? `Edit task ${task.name}` : `Add new task`}
+          {task ? `Edit task ${task.name}` : 'Add new task'}
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>

@@ -1,15 +1,13 @@
-import { MenuItem } from "./api";
-
 export type CurrentUser = {
   id: number;
   name: string;
 };
 
 export enum StatusStateENUM {
-  IDLE = "idle",
-  LOADING = "loading",
-  SUCCEEDED = "succeeded",
-  FAILED = "failed",
+  IDLE = 'idle',
+  LOADING = 'loading',
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed',
 }
 
 export type AuthState = {
@@ -23,7 +21,12 @@ export type AuthState = {
 export type AlertState = {
   show: boolean;
   message: string;
-  type: "success" | "error" | "warning";
+  type: 'success' | 'error' | 'warning';
+};
+
+export type MenuItem = {
+  code: string;
+  label: string;
 };
 
 export type DrawerState = {
@@ -47,9 +50,9 @@ export type TaskState = {
 };
 
 export enum TaskStatusENUM {
-  OPEN = "OPEN",
-  INPROGRESS = "inprogress",
-  COMPLETE = "complete",
+  OPEN = 'OPEN',
+  INPROGRESS = 'inprogress',
+  COMPLETE = 'complete',
 }
 
 export type Task = {

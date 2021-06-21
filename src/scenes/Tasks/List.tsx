@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import CreateTaskDialog from "../../components/Dialogs/CreateTaskDialog";
+import React, { useState } from 'react';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import CreateTaskDialog from '../../components/Dialogs/CreateTaskDialog';
 
-import DataTable from "./DataTable";
+import DataTable from './DataTable';
 
 function Task() {
   const [selectedTask, selectTask] = useState<number | null>(null);
@@ -24,7 +24,7 @@ function Task() {
     }, 100);
   };
 
-  console.log("task list renderr");
+  console.log('task list renderr');
   return (
     <Box height="100%">
       <Box mb={2}>

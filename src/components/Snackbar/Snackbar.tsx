@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import MuiAlert from "@material-ui/lab/Alert";
-import { uiAlertState, showAlert } from "../../redux/slices/uiSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import MuiAlert from '@material-ui/lab/Alert';
+import { uiAlertState, showAlert } from '../../redux/slices/uiSlice';
 
-import SnackbarStyled from "./SnackbarStyled";
+import SnackbarStyled from './SnackbarStyled';
 
 export default function Snackbar() {
   const UiAlert = useSelector(uiAlertState);

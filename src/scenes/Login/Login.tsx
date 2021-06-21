@@ -1,18 +1,18 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
-import { login, authState, getCurrentUser } from "../../redux/slices/authSlice";
-import { showAlert } from "../../redux/slices/uiSlice";
-import { unwrapResult } from "@reduxjs/toolkit";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { login, authState, getCurrentUser } from '../../redux/slices/authSlice';
+import { showAlert } from '../../redux/slices/uiSlice';
 import {
   TextFieldForm,
   Button,
   Card,
   Form,
   CheckboxForm,
-} from "../../components";
-import { LoginSchema } from "../../schemas";
-import LoginStyled from "./LoginStyled";
+} from '../../components';
+import { LoginSchema } from '../../schemas';
+import LoginStyled from './LoginStyled';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -23,22 +23,20 @@ export default function Login() {
       const result = await dispatch(login(data));
       unwrapResult(result);
       dispatch(getCurrentUser());
-      const { from } =
-        location.state && location.state.from.pathname !== "/logout"
-          ? location.state
-          : {
-              from: { pathname: "/" },
-            };
+      const { from } = location.state && location.state.from.pathname !== '/logout'
+        ? location.state
+        : {
+          from: { pathname: '/' },
+        };
 
-      
       history.replace(from);
     } catch (error) {
       dispatch(
         showAlert({
           show: true,
           message: error.message,
-          type: "error",
-        })
+          type: 'error',
+        }),
       );
     }
   };
@@ -51,7 +49,7 @@ export default function Login() {
         <Form
           onSubmit={handleSubmit}
           schema={LoginSchema}
-          loading={auth.status === "loading"}
+          loading={auth.status === 'loading'}
         >
           <TextFieldForm
             name="username"

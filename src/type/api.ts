@@ -1,6 +1,7 @@
-import { AxiosResponse } from "axios";
-import { Task } from "./model";
-export type APIFunc<T> = (data: {
+import { AxiosResponse } from 'axios';
+import { Task } from './model';
+
+export type APIFunc<T> = (data: { // eslint-disable-line no-unused-vars
   body: T | undefined;
   accessToken?: string;
 }) => AxiosResponse | any | void;
@@ -11,12 +12,11 @@ export type LoginRequestForm = {
   isRememberMe: boolean;
 };
 
-export type CreateTaskRequestForm = Pick<Task, "name" | "authorID" | "ownerId" | "categoryId" | "description">;
+export type CreateTaskRequestForm = Pick<Task, 'name' | 'authorID' | 'ownerId' | 'categoryId' | 'description'>;
 
 export type UpdateTaskRequestForm = CreateTaskRequestForm & {
   id: number
 };
-
 
 export type AuthToken = {
   accessToken: string;
@@ -29,9 +29,4 @@ export type CommonError = {
 
 export type RejectThunk = {
   rejectValue: CommonError;
-};
-
-export type MenuItem = {
-  code: string;
-  label: string;
 };

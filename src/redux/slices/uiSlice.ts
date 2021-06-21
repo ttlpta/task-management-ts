@@ -1,22 +1,22 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { MenuItem, RejectThunk } from "../../type/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { RejectThunk } from '../../type/api';
 
-import asyncThunkWrapper from "../asyncThunkWrapper";
-import { getMenuItemsService } from "../../services/UIService";
-import { StatusStateENUM, UIState } from "../../type/model";
-import { RootState } from "../store";
+import asyncThunkWrapper from '../asyncThunkWrapper';
+import { getMenuItemsService } from '../../services/UIService';
+import { MenuItem, StatusStateENUM, UIState } from '../../type/model';
+import { RootState } from '../store';
 
 export const getMenuItems = createAsyncThunk<
-  MenuItem[],
-  undefined,
-  RejectThunk
->("auth/getMenuItems", asyncThunkWrapper(getMenuItemsService));
+MenuItem[],
+undefined,
+RejectThunk
+>('auth/getMenuItems', asyncThunkWrapper(getMenuItemsService));
 
 const initialState: UIState = {
   alert: {
     show: false,
-    message: "",
-    type: "success",
+    message: '',
+    type: 'success',
   },
   drawer: {
     list: [],
@@ -25,7 +25,7 @@ const initialState: UIState = {
   },
 };
 export const uiSlice = createSlice({
-  name: "ui",
+  name: 'ui',
   initialState,
   reducers: {
     showAlert(state, action) {

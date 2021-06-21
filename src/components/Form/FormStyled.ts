@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default styled.form`
   position: relative;
@@ -13,4 +13,4 @@ export default styled.form`
     justify-content: center;
     align-items: center;
   }
-`
+`;
