@@ -12038,6 +12038,11 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
+ttlpta-first-lib@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ttlpta-first-lib/-/ttlpta-first-lib-1.0.0.tgz#cced4452b57906e9509d2105c33ad5b11ecb1bea"
+  integrity sha512-NwVqu7UMYC66WYRlVWsNSr4zNvETnB5lloRm1PJ0j/LmdwQSVxZMJJT+UvP9h40XrJvXxtkUJ1QnQ0rFoBP/EQ==
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"

@@ -1,5 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Hello } from 'ttlpta-first-lib';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login, authState, getCurrentUser } from '../../redux/slices/authSlice';
 import { showAlert } from '../../redux/slices/uiSlice';
@@ -52,6 +53,7 @@ export default function Login() {
   return (
     <LoginStyled>
       <Card className="loginForm__wrapper">
+        <p>{Hello('world')}</p>
         <Form<LoginRequestForm, ILoginSchema>
           onSubmit={handleSubmit}
           schema={LoginSchema}
