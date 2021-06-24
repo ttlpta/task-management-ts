@@ -3,10 +3,13 @@ import { useFormContext } from 'react-hook-form';
 import TextField from '../TextField/TextField';
 
 type TextFieldFormProps = TextFieldProps & {
-  name: string
+  name: string;
 };
 export default function TextFieldForm({ name, ...props }: TextFieldFormProps) {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { ref, ...methods } = register(name);
 
   return (

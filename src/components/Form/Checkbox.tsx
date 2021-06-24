@@ -6,30 +6,19 @@ import { CheckboxProps } from '@material-ui/core';
 import Checkbox from '../Checkbox/Checkbox';
 
 type CheckboxFormProps = {
-  name: string,
-  label: string
+  name: string;
+  label: string;
 } & CheckboxProps;
-export default function CheckboxForm({
-  name,
-  label,
-  ...props
-}: CheckboxFormProps) {
-  const { register, formState: { errors } } = useFormContext();
+export default function CheckboxForm({ name, label, ...props }: CheckboxFormProps) {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { ref, ...methods } = register(name);
 
   return (
     <FormControl error={!!errors[name]}>
-      <FormControlLabel
-        control={(
-          <Checkbox
-            inputRef={ref}
-            {...methods}
-            {...props}
-            name={name}
-          />
-        )}
-        label={label}
-      />
+      <FormControlLabel control={<Checkbox inputRef={ref} {...methods} {...props} name={name} />} label={label} />
       <FormHelperText>{!!errors[name] && errors[name].message}</FormHelperText>
     </FormControl>
   );

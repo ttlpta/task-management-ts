@@ -4,13 +4,7 @@ import { Hello } from 'ttlpta-first-lib';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login, authState, getCurrentUser } from '../../redux/slices/authSlice';
 import { showAlert } from '../../redux/slices/uiSlice';
-import {
-  TextFieldForm,
-  Button,
-  Card,
-  Form,
-  CheckboxForm,
-} from '../../components';
+import { TextFieldForm, Button, Card, Form, CheckboxForm } from '../../components';
 import { ILoginSchema, LoginSchema } from '../../schemas';
 import LoginStyled from './LoginStyled';
 import { LoginRequestForm } from '../../type/api';
@@ -30,11 +24,12 @@ export default function Login() {
       const result = await dispatch(login(data));
       unwrapResult(result);
       dispatch(getCurrentUser());
-      const { from } = location.state && location.state.from.pathname !== '/logout'
-        ? location.state
-        : {
-          from: { pathname: '/' },
-        };
+      const { from } =
+        location.state && location.state.from.pathname !== '/logout'
+          ? location.state
+          : {
+              from: { pathname: '/' },
+            };
 
       history.replace(from);
     } catch (error) {
@@ -59,12 +54,7 @@ export default function Login() {
           schema={LoginSchema}
           loading={auth.status === 'loading'}
         >
-          <TextFieldForm
-            name="username"
-            label="Username"
-            fullWidth
-            className="loginForm__txtField--username"
-          />
+          <TextFieldForm name="username" label="Username" fullWidth className="loginForm__txtField--username" />
           <TextFieldForm
             type="password"
             name="password"
@@ -73,13 +63,7 @@ export default function Login() {
             className="loginForm__txtField--pw"
           />
           <CheckboxForm label="Remember me" name="isRememberMe" />
-          <Button
-            label="Submit"
-            fullWidth
-            type="submit"
-            color="secondary"
-            className="loginForm__btn--submit"
-          />
+          <Button label="Submit" fullWidth type="submit" color="secondary" className="loginForm__btn--submit" />
         </Form>
       </Card>
     </LoginStyled>

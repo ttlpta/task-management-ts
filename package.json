@@ -44,7 +44,8 @@
     "eject": "react-scripts eject",
     "eslint": "node_modules/.bin/eslint",
     "eslint:hook": "node_modules/.bin/eslint",
-    "eslint-autofix": "node_modules/.bin/eslint --fix"
+    "eslint-autofix": "node_modules/.bin/eslint --fix",
+    "format": "prettier --write $(git diff-index --name-only --diff-filter=d HEAD | grep .*\\.ts | grep .*\\.tsx | grep -v json)"
   },
   "eslintConfig": {
     "extends": [
@@ -89,7 +90,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "*.{ts,tsx}": [
+      "npm run format",
       "npm run eslint:hook"
     ]
   }

@@ -28,20 +28,12 @@ function Task() {
   return (
     <Box height="100%">
       <Box mb={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleOpenCreateDialog}
-        >
+        <Button variant="contained" color="primary" onClick={handleOpenCreateDialog}>
           Create Task
         </Button>
       </Box>
       <DataTable onEdit={handleClickEdit} />
-      <CreateTaskDialog
-        open={openAddDialog}
-        handleClose={handleCloseCreateDialog}
-        taskId={selectedTask}
-      />
+      <CreateTaskDialog open={openAddDialog} handleClose={handleCloseCreateDialog} taskId={selectedTask} />
     </Box>
   );
 }

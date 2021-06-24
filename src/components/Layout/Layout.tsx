@@ -29,12 +29,7 @@ function Layout({ title, children }: LayoutProps) {
     <LayoutStyled>
       <AppBar position="static" color="secondary">
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleClickMenu}
-          >
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClickMenu}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className="app__title">
@@ -44,12 +39,7 @@ function Layout({ title, children }: LayoutProps) {
             <Box mr="10px">
               <UserInfo />
             </Box>
-            <Button
-              color="inherit"
-              onClick={logout}
-              variant="outlined"
-              size="small"
-            >
+            <Button color="inherit" onClick={logout} variant="outlined" size="small">
               Logout
             </Button>
           </Box>

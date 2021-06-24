@@ -1,6 +1,4 @@
-import {
-  useForm, FormProvider, SubmitHandler, DefaultValues,
-} from 'react-hook-form';
+import { useForm, FormProvider, SubmitHandler, DefaultValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box } from '@material-ui/core';
 import { PropsWithChildren } from 'react';

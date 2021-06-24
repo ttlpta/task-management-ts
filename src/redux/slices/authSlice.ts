@@ -1,28 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { LoginRequestForm, AuthToken, RejectThunk } from '../../type/api';
-import {
-  AuthState,
-  CurrentUser,
-  StatusStateENUM,
-} from '../../type/model';
+import { AuthState, CurrentUser, StatusStateENUM } from '../../type/model';
 import asyncThunkWrapper from '../asyncThunkWrapper';
-import {
-  loginService,
-  getCurrentUserService,
-} from '../../services/AuthService';
+import { loginService, getCurrentUserService } from '../../services/AuthService';
 import { RootState } from '../store';
 
-export const login = createAsyncThunk<
-AuthToken,
-LoginRequestForm,
-RejectThunk
->('auth/login', asyncThunkWrapper(loginService));
+export const login = createAsyncThunk<AuthToken, LoginRequestForm, RejectThunk>(
+  'auth/login',
+  asyncThunkWrapper(loginService),
+);
 
-export const getCurrentUser = createAsyncThunk<
-CurrentUser,
-undefined,
-RejectThunk
->('auth/getCurrentUser', asyncThunkWrapper(getCurrentUserService));
+export const getCurrentUser = createAsyncThunk<CurrentUser, undefined, RejectThunk>(
+  'auth/getCurrentUser',
+  asyncThunkWrapper(getCurrentUserService),
+);
 
 const initialState: AuthState = {
   accessToken: '',

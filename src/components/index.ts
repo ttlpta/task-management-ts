@@ -9,15 +9,4 @@ import Spinner from './Spinner/Spinner';
 import Snackbar from './Snackbar/Snackbar';
 import Layout from './Layout/Layout';
 
-export {
-  Loading,
-  TextField,
-  TextFieldForm,
-  Card,
-  Button,
-  Form,
-  CheckboxForm,
-  Spinner,
-  Snackbar,
-  Layout,
-};
+export { Loading, TextField, TextFieldForm, Card, Button, Form, CheckboxForm, Spinner, Snackbar, Layout };

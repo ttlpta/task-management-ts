@@ -1,13 +1,5 @@
-import {
-  Suspense, lazy, useEffect, PropsWithChildren,
-} from 'react';
-import {
-  Switch,
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  RouteProps,
-} from 'react-router-dom';
+import { Suspense, lazy, useEffect, PropsWithChildren } from 'react';
+import { Switch, BrowserRouter as Router, Route, Redirect, RouteProps } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import {
@@ -44,14 +36,13 @@ const Users = lazy(() => import('./scenes/Users/Users'));
 const Page500 = lazy(() => import('./scenes/500/Page500'));
 const Page404 = lazy(() => import('./scenes/404/Page404'));
 
-type PrivateRouterProps = RouteProps & PropsWithChildren<{
-  title: string,
-  noLayout?: boolean,
-}>;
+type PrivateRouterProps = RouteProps &
+  PropsWithChildren<{
+    title: string;
+    noLayout?: boolean;
+  }>;
 
-function PrivateRouter({
-  children, title, noLayout = false, ...rest
-}: PrivateRouterProps): JSX.Element {
+function PrivateRouter({ children, title, noLayout = false, ...rest }: PrivateRouterProps): JSX.Element {
   const dispatch = useDispatch();
   const auth = useSelector(authState);
   const isLogined = auth.accessToken;
@@ -64,16 +55,22 @@ function PrivateRouter({
   return (
     <Route
       {...rest}
-      render={({ location }) => (isLogined ? (
-        noLayout ? children : <Layout title={title}>{children}</Layout>
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: location },
-          }}
-        />
-      ))}
+      render={({ location }) =>
+        isLogined ? (
+          noLayout ? (
+            children
+          ) : (
+            <Layout title={title}>{children}</Layout>
+          )
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: location },
+            }}
+          />
+        )
+      }
     />
   );
 }
@@ -105,10 +102,7 @@ export default function App() {
                       <PrivateRouter exact path="/users" title="Users">
                         <Users />
                       </PrivateRouter>
-                      <Redirect
-                        from="/tasks"
-                        to="/"
-                      />
+                      <Redirect from="/tasks" to="/" />
                       <Route component={Page404} />
                     </Switch>
                   </Page500>

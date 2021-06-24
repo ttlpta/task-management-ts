@@ -1,8 +1,6 @@
 import Typography from '@material-ui/core/Typography';
 import { useSelector } from 'react-redux';
-import {
-  authState,
-} from '../../redux/slices/authSlice';
+import { authState } from '../../redux/slices/authSlice';
 
 export default function UserInfo() {
   const auth = useSelector(authState);

@@ -1,5 +1,3 @@
 export default function Categories() {
-  return (
-    <div>List Categories</div>
-  );
+  return <div>List Categories</div>;
 }

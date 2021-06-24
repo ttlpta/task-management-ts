@@ -59,9 +59,7 @@ function Row({ row, onEdit }: RowProps) {
     return (
       <TableRow key={row.name + row.id}>
         {columnData.map((column) => (
-          <TableCell key={`columnItem-${column.code}`}>
-            {renderData(row, column.code)}
-          </TableCell>
+          <TableCell key={`columnItem-${column.code}`}>{renderData(row, column.code)}</TableCell>
         ))}
       </TableRow>
     );
@@ -85,9 +83,7 @@ function DataTable({ onEdit }: DataTableProps) {
         <TableHead>
           <TableRow>
             {columnData.map((column) => (
-              <TableCell key={`column-${column.code}`}>
-                {column.label}
-              </TableCell>
+              <TableCell key={`column-${column.code}`}>{column.label}</TableCell>
             ))}
           </TableRow>
         </TableHead>

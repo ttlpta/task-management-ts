@@ -6,11 +6,10 @@ import { getMenuItemsService } from '../../services/UIService';
 import { MenuItem, StatusStateENUM, UIState } from '../../type/model';
 import { RootState } from '../store';
 
-export const getMenuItems = createAsyncThunk<
-MenuItem[],
-undefined,
-RejectThunk
->('auth/getMenuItems', asyncThunkWrapper(getMenuItemsService));
+export const getMenuItems = createAsyncThunk<MenuItem[], undefined, RejectThunk>(
+  'auth/getMenuItems',
+  asyncThunkWrapper(getMenuItemsService),
+);
 
 const initialState: UIState = {
   alert: {

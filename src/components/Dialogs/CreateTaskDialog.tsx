@@ -9,12 +9,7 @@ import { useEffect, useState } from 'react';
 import { showAlert } from '../../redux/slices/uiSlice';
 import TextFieldForm from '../Form/TextField';
 import Form from '../Form/Form';
-import {
-  createTask,
-  getTaskById,
-  selectTaskById,
-  updateTask,
-} from '../../redux/slices/taskSlice';
+import { createTask, getTaskById, selectTaskById, updateTask } from '../../redux/slices/taskSlice';
 
 import { CreateTaskSchema, ICreateTaskSchema } from '../../schemas';
 import { useAppSelector, useAppDispatch } from '../../hooks';
@@ -24,23 +19,17 @@ import { Task } from '../../type/model';
 type CreateTaskDialogProps = {
   open: boolean;
   handleClose: () => void;
-  taskId: number | null
+  taskId: number | null;
 };
 
-export default function CreateTaskDialog({
-  open,
-  handleClose: close,
-  taskId = null,
-}: CreateTaskDialogProps) {
+export default function CreateTaskDialog({ open, handleClose: close, taskId = null }: CreateTaskDialogProps) {
   const dispatch = useAppDispatch();
   const [formLoading, setFormLoading] = useState(false);
   const task = useAppSelector((state) => selectTaskById(state, taskId as number));
   const handleSubmit = async (data: CreateTaskRequestForm) => {
     try {
       setFormLoading(true);
-      const result = task
-        ? await dispatch(updateTask({ id: task.id, ...data }))
-        : await dispatch(createTask(data));
+      const result = task ? await dispatch(updateTask({ id: task.id, ...data })) : await dispatch(createTask(data));
       unwrapResult(result);
       dispatch(
         showAlert({
@@ -76,32 +65,24 @@ export default function CreateTaskDialog({
     }
   }, [taskId, dispatch]);
   const defaultValue = task
-    ? {
-      name: task.name,
-      authorID: task.authorID, // @TODO: sau nay se thay thanh Select, value la id, option la string
-      ownerId: task.ownerId,
-      categoryId: task.categoryId,
-      description: task.description,
-    } as ICreateTaskSchema
-    : {} as ICreateTaskSchema;
+    ? ({
+        name: task.name,
+        authorID: task.authorID, // @TODO: sau nay se thay thanh Select, value la id, option la string
+        ownerId: task.ownerId,
+        categoryId: task.categoryId,
+        description: task.description,
+      } as ICreateTaskSchema)
+    : ({} as ICreateTaskSchema);
 
   return (
-    <Dialog
-      open={open}
-      fullWidth
-      maxWidth="sm"
-      onClose={handleClose}
-      aria-labelledby="form-dialog-title"
-    >
+    <Dialog open={open} fullWidth maxWidth="sm" onClose={handleClose} aria-labelledby="form-dialog-title">
       <Form<Task, ICreateTaskSchema>
         defaultValues={defaultValue}
         loading={formLoading}
         onSubmit={handleSubmit}
         schema={CreateTaskSchema}
       >
-        <DialogTitle id="form-dialog-title">
-          {task ? `Edit task ${task.name}` : 'Add new task'}
-        </DialogTitle>
+        <DialogTitle id="form-dialog-title">{task ? `Edit task ${task.name}` : 'Add new task'}</DialogTitle>
         <DialogContent>
           <Grid container spacing={1}>
             <Grid item xs={12}>
@@ -117,13 +98,7 @@ export default function CreateTaskDialog({
               <TextFieldForm name="categoryId" label="Category" fullWidth />
             </Grid>
             <Grid item xs={12}>
-              <TextFieldForm
-                multiline
-                rows={4}
-                name="description"
-                label="Description"
-                fullWidth
-              />
+              <TextFieldForm multiline rows={4} name="description" label="Description" fullWidth />
             </Grid>
           </Grid>
         </DialogContent>

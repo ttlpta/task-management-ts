@@ -1,5 +1,3 @@
 export default function Users() {
-  return (
-    <div>List Users</div>
-  );
+  return <div>List Users</div>;
 }

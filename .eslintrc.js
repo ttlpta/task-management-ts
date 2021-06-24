@@ -25,6 +25,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'object-curly-newline': 0,
     "import/no-cycle": 0,
     "@typescript-eslint/no-unused-expressions": ["error", { "allowShortCircuit": true }],
     "import/no-unresolved": 0,

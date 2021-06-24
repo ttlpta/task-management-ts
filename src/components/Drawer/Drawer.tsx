@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import {
-  Link,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -28,11 +26,7 @@ export default function Drawer() {
   };
 
   return (
-    <DrawerStyled
-      anchor="left"
-      open={uiDrawer.open}
-      onClose={handleToggleDrawer}
-    >
+    <DrawerStyled anchor="left" open={uiDrawer.open} onClose={handleToggleDrawer}>
       <Box paddingTop={8}>
         <Divider />
         <List>

@@ -2,17 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import taskAdapter from '../entities/task';
 import asyncThunkWrapper from '../asyncThunkWrapper';
-import {
-  createTaskService,
-  getTaskService,
-  getTasksService,
-  updateTaskService,
-} from '../../services/TaskService';
-import {
-  CreateTaskRequestForm,
-  RejectThunk,
-  UpdateTaskRequestForm,
-} from '../../type/api';
+import { createTaskService, getTaskService, getTasksService, updateTaskService } from '../../services/TaskService';
+import { CreateTaskRequestForm, RejectThunk, UpdateTaskRequestForm } from '../../type/api';
 import { StatusStateENUM, Task } from '../../type/model';
 import { RootState } from '../store';
 
@@ -21,17 +12,15 @@ export const getTasks = createAsyncThunk<Task[], undefined, RejectThunk>(
   asyncThunkWrapper(getTasksService),
 );
 
-export const createTask = createAsyncThunk<
-Task,
-CreateTaskRequestForm,
-RejectThunk
->('tasks/createTask', asyncThunkWrapper(createTaskService));
+export const createTask = createAsyncThunk<Task, CreateTaskRequestForm, RejectThunk>(
+  'tasks/createTask',
+  asyncThunkWrapper(createTaskService),
+);
 
-export const updateTask = createAsyncThunk<
-Task,
-UpdateTaskRequestForm,
-RejectThunk
->('tasks/updateTask', asyncThunkWrapper(updateTaskService));
+export const updateTask = createAsyncThunk<Task, UpdateTaskRequestForm, RejectThunk>(
+  'tasks/updateTask',
+  asyncThunkWrapper(updateTaskService),
+);
 
 export const getTaskById = createAsyncThunk<Task, number, RejectThunk>(
   'tasks/getTaskById',

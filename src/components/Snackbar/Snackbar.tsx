@@ -12,11 +12,7 @@ export default function Snackbar() {
   };
 
   return (
-    <SnackbarStyled
-      open={UiAlert.show}
-      autoHideDuration={2000}
-      onClose={handleOnClose}
-    >
+    <SnackbarStyled open={UiAlert.show} autoHideDuration={2000} onClose={handleOnClose}>
       <MuiAlert severity={UiAlert.type}>{UiAlert.message}</MuiAlert>
     </SnackbarStyled>
   );

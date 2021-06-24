@@ -1,7 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { Task } from './model';
 
-export type APIFunc<T> = (data: { // eslint-disable-line no-unused-vars
+export type APIFunc<T> = (data: {
+  // eslint-disable-line no-unused-vars
   body: T | undefined;
   accessToken?: string;
 }) => AxiosResponse | any | void;
@@ -15,7 +16,7 @@ export type LoginRequestForm = {
 export type CreateTaskRequestForm = Pick<Task, 'name' | 'authorID' | 'ownerId' | 'categoryId' | 'description'>;
 
 export type UpdateTaskRequestForm = CreateTaskRequestForm & {
-  id: number
+  id: number;
 };
 
 export type AuthToken = {

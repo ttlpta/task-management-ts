@@ -1,9 +1,4 @@
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-  Action,
-} from '@reduxjs/toolkit';
+import { configureStore, combineReducers, getDefaultMiddleware, Action } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -40,9 +35,7 @@ const rootReducer = (state: RootState, action: Action): RootState => {
 };
 
 const SetTransform = createTransform(
-  (
-    inboundState: AuthState,
-  ): Pick<AuthState, 'accessToken' | 'refreshToken'> => ({
+  (inboundState: AuthState): Pick<AuthState, 'accessToken' | 'refreshToken'> => ({
     accessToken: inboundState.accessToken,
     refreshToken: inboundState?.refreshToken || '',
   }),
